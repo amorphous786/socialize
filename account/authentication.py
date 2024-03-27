@@ -1,10 +1,14 @@
 from django.contrib.auth.models import User
-
+from account.models import Profile
 class EmailAuthBackend:
   """
   Authentication using an e-mail address.
   """
-
+  def create_profile(backend,user,*args,**kwargs):
+    """
+      Create user profile for  social authentication
+    """
+    Profile.objects.get_or_create(user=user)
   def authenticate(self,request,username=None,password=None):
     try:
       user = User.objects.get(email=username)

@@ -26,7 +26,8 @@
 *.log
 *.sql
 *.sqlite3
-
+*.cert
+*.key
 # virtualenv generated files #
 ##############################
 Scripts
