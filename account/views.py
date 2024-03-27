@@ -6,6 +6,8 @@ from .forms import LoginForm,UserRegistrationForm,\
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from django.contrib import messages
+
+
 def register(request):
   if request.method=='POST':
     user_form = UserRegistrationForm(request.POST)
@@ -41,7 +43,7 @@ def user_login(request):
   
 @login_required 
 def dashboard(request):
-  
+
   return render(request,
                 'account/dashboard.html',
                 {'section':'dashboard'})
@@ -62,8 +64,16 @@ def edit(request):
     else:
       messages.error(request,'Error updating your profile')
   else:
-    user_form = UserEditForm(instance=request.user)
-    profile_form = ProfileEditForm(instance=request.user.profile)
+    
+    try:
+      user_form = UserEditForm(instance=request.user)
+      profile_form = ProfileEditForm(instance=request.user.profile)
+
+    except Exception:
+      user_form = UserEditForm(instance=request.user)
+      profile = Profile.objects.create(user_id=request.user.id)
+      profile_form = ProfileEditForm(instance=profile)
+
   return render(request,'account/edit.html',
                 {
                   'user_form':user_form,
