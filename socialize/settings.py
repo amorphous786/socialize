@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'django_extensions'
+    'django_extensions',
+    "easy_thumbnails"
 ]
 
 MIDDLEWARE = [
@@ -169,3 +170,5 @@ GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_AUTH_ID')
 GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_AUTH_SECRET_KEY')
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+THUMBNAIL_DEBUG = True
