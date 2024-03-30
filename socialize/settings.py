@@ -14,6 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 load_dotenv()
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
+    'images.apps.ImagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'django_extensions'
+    'django_extensions',
+    "easy_thumbnails",
+    'actions.apps.ActionsConfig'
 ]
 
 MIDDLEWARE = [
@@ -168,3 +172,9 @@ GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_AUTH_ID')
 GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_AUTH_SECRET_KEY')
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+THUMBNAIL_DEBUG = True
+
+ABSOLUTE_URL_OVERRIDES = {
+  'auth.user': lambda u: reverse_lazy('user_detail',args=[u.username])
+}
