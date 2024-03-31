@@ -46,10 +46,12 @@ INSTALLED_APPS = [
     'social_django',
     'django_extensions',
     "easy_thumbnails",
-    'actions.apps.ActionsConfig'
+    'actions.apps.ActionsConfig',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -178,3 +180,13 @@ THUMBNAIL_DEBUG = True
 ABSOLUTE_URL_OVERRIDES = {
   'auth.user': lambda u: reverse_lazy('user_detail',args=[u.username])
 }
+
+
+INTERNAL_IPS = [
+ '127.0.0.1',
+] 
+
+#REDIS SETUP
+REDIS_HOST = os.environ.get('REDIS_HOST')
+REDIS_PORT = os.environ.get('REDIS_PORT')
+REDIS_DB = os.environ.get('REDIS_DB')
